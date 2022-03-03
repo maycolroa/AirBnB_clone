@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """command create a new instance"""
-        class_l = ["BaseModel"]
+        class_l = {"BaseModel": BaseModel()}
         if len(arg) < 1:
             print("** class name missing **")
             return
@@ -33,13 +33,37 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            if arg == "BaseModel":
-                new_obj = BaseModel()
-                print(new_obj.id)
+                obj = class_l.get(arg)
+                storage.new(obj)
+                storage.save()
+                print(obj.id)
 
     def do_show(self, arg):
         """Command that  the string representation of an
         instance based on the class name and id
+        """
+        arg = arg.split()
+        class_l = ['BaseModel']
+        if not len(arg):
+            print("** class name missing **")
+            return
+        if arg[0] not in class_l:
+            print("** class doesn't exist **")
+            return
+        if len(arg) < 2:
+            print("** instance id missing **")
+            return
+        string = "{}.{}".format(arg[0], arg[1])
+        objects = storage.all()
+        if string in objects.keys():
+            print(objects[string])
+            
+        else:
+            print("** no instance found **")
+
+    def do_destroy(self, arg):
+        """Command to delete an instance with its class
+        name and id
         """
         arg = arg.split()
         class_l = ['BaseModel']
@@ -53,20 +77,13 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) < 2:
             print("** instance id missing **")
             return
-        if os.path.exists("file.json"):
-            with open("file.json", encoding='utf-8') as file:
-                contents = json.load(file)
-            string = "{}.{}".format(arg[0], arg[1])
-            if string in contents:
-                for key, value in contents.items():
-                    if key == string:
-                        print("[{}]".format(arg[0]), value)
-            else:
-                print("** no instance found **")
-                return
+        string = "{}.{}".format(arg[0], arg[1])
+        objects = storage.all()
+        if string in objects:
+            objects.pop(string)
+            storage.save()
+
+
         
-
-            
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

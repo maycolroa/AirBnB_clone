@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import json, os
+
 """Module that contains class FilesStorage"""
 
 class FileStorage:
@@ -19,19 +20,19 @@ class FileStorage:
         """sets in __objects the obj 
         with key <obj class name>.id
         """
-        if obj:
-            self.__objects.update({str(type(obj).__name__ + "." + obj.id): obj})
+        new_obj = "{}.{}".format(obj.__class__.__name__, obj.id)
+        self.__objects[new_obj] = obj
+        #self.__objects.update({str(type(obj).__name__ + "." + obj.id): obj})
 
     def save(self):
         """serializes __objects to the
         JSON file (path: __file_path)
         """
-        if self.__objects:
-            new_dict = {}
-            for key, value in self.__objects.items():
-                new_dict[key] = value.to_dict()
-            with open(self.__file_path, mode='w', encoding='utf-8') as file:
-                (json.dump(new_dict, file))
+        new_dict = {}
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
+        with open(self.__file_path, mode="w", encoding="utf-8") as file:
+            json.dump(new_dict, file)
 
 
     def reload(self):
@@ -39,16 +40,12 @@ class FileStorage:
         (only if the JSON file (__file_path) exists;
         otherwise, do nothing.
         """
+        from models.base_model import BaseModel
         if os.path.exists(self.__file_path):
             with open(self.__file_path, encoding='utf-8') as file:
-                contents = file.read()
-        else:
-            return
-
-        if contents:
-            dictionary = {}
-            contents = json.loads(contents)
-            for key, value in contents.items():
-                eval(value['__class__'])(**value)
+                contents = json.load(file)
+            if contents:
+                for key, value in contents.items():
+                    eval(value['__class__'])(**value)
         else:
             return

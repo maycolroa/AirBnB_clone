@@ -1,7 +1,8 @@
 #!/usr/bin/python3
+import uuid
 from abc import ABC, abstractmethod
 from datetime import datetime 
-import uuid
+from models import storage
 
 """This module contain a base model that have
 """
@@ -23,15 +24,22 @@ class BaseModel(ABC):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.update_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
+        """instance that return str of class atributtes"""
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                         self.__dict__)
         
     def save(self):
+        """update the update atributte"""
         self.update_at = datetime.now()
+        storage.save()
         
     def to_dict(self):
+        """eturns a dictionary containing all 
+        keys/values of __dict__ of the instance:
+        """
         return_dictionary = self.__dict__.copy()
         return_dictionary.update({'created_at': self.created_at.isoformat(),
                                   'update_at': self.update_at.isoformat(),

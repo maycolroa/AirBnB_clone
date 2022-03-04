@@ -24,3 +24,4 @@ the project has 2 exercises
 ## Authors
 ```
 * Maycol David Roa [@maycolroa](https://github.com/maycolroa)
+* Pablo Osorio [@PabloOsorix](https://github.com/PabloOsorix)

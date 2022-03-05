@@ -1,19 +1,18 @@
 #!/usr/bin/python3
+"""This module contain a base model that have
+"""
 import uuid
 from datetime import datetime
 from models import storage
-
-"""This module contain a base model that have
-"""
 
 
 class BaseModel:
     """Class that defines a BaseModel atributtes"""
 
     def __init__(self, *args, **kwargs):
-        """created a new instance"""
-
-        if kwargs and len(kwargs) > 0:
+        """created a new instance
+        """
+        if kwargs is not None and len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "update_at":
                     value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
@@ -24,7 +23,6 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.update_at = datetime.now()
-
         storage.new(self)
 
     def __str__(self):

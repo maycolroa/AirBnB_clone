@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-
+from models.base_model import BaseModel
 """Moodule that contain user class inherits from
     base class.
 """
-
-from models.base_model import BaseModel
 
 
 class User(BaseModel):

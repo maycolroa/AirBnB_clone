@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 from models.base_model import BaseModel
 """Module that cointains Place class
     inherits from base.

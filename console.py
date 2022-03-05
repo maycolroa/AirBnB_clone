@@ -21,7 +21,6 @@ class HBNBCommand(cmd.Cmd):
     __class_l = ['BaseModel', 'User', 'State', 'City',
                  'Amenity', 'Place', 'Review']
 
-    # ----- basic HBNB commands -----
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
         exit()

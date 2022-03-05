@@ -1,11 +1,8 @@
 #!/usr/bin/python3
-
 """
-module that create a unique FileStorage
-instance for your application.
+create an unique instance of the class FileStorage
 """
 from models.engine.file_storage import FileStorage
 
-
 storage = FileStorage()
-storage.reload()
+storage.reload()  # Loads saved info in json file if the file exists

@@ -24,7 +24,7 @@ class FileStorage():
         """
         if obj:
             self.__objects.update(
-                {str(type(obj).__name__ +"." + obj.id): obj})
+                {str(type(obj).__name__ + "." + obj.id): obj})
 
     def save(self):
         """serializes __objects to the

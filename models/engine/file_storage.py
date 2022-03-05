@@ -50,13 +50,18 @@ class FileStorage():
         from models.place import Place
         from models.review import Review
 
+        dict_deserialized = {}
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, encoding='utf-8') as file:
-                contents = json.load(file)
-            if contents is not None:
-                for key, value in contents.items():
-                    self.new(eval(value['__class__'])(**value))
-            else:
-                pass
+            with open(self.__file_path, encoding="utf-8") as my_file:
+                content = my_file.read()
         else:
             return
+        if content is not None or bool(content) is True:
+            dict_deserialized = json.loads(content)
+        for key, value in dict_deserialized.items():
+            if key not in self.__objects.keys():
+                ClassName = value["__class__"]
+                new_instance = eval("{}(**value)".format(ClassName))
+                self.new(new_instance)
+        else:
+            pass

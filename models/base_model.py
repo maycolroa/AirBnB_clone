@@ -11,7 +11,6 @@ class BaseModel():
     """
     Class that defines a BaseModel atributtes
     """
-
     def __init__(self, *args, **kwargs):
         """
         created a new instance
@@ -45,8 +44,7 @@ class BaseModel():
 
     def to_dict(self):
         """
-        returns a dictionary containing all
-        keys/values of __dict__ of the instance:
+        returns a dictionary containing all keys/values of __dict__ of the instance:
         """
         return_dictionary = self.__dict__.copy()
         return_dictionary.update({'created_at': self.created_at.isoformat(),

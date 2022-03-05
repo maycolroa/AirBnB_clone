@@ -7,6 +7,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+from models.engine import file_storage
 from models import storage
 import cmd
 

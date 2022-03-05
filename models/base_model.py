@@ -31,12 +31,14 @@ class BaseModel():
         """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                      self.__dict__)
+
     def save(self):
         """
             update the update atributte
         """
         self.updated_at = datetime.now()
         storage.save()
+
     def to_dict(self):
         """
             returns a dictionary with specific attribbites and format

@@ -56,5 +56,7 @@ class FileStorage():
                 for key, value in contents.items():
                     new_obj = eval(value['__class__'])(**value)
                     self.new(new_obj)
+            else:
+                pass
         else:
             return

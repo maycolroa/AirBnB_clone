@@ -27,6 +27,7 @@ class BaseModel():
             self.created_at = datetime.now()
             self.update_at = datetime.now()
         storage.new(self)
+        storage.save()
 
     def __str__(self):
         """

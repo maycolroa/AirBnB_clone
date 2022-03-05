@@ -1,16 +1,18 @@
 #!/usr/bin/python3
-"""This module contain a base model that have
+"""
+This module contain a base model that have
 """
 import uuid
 from datetime import datetime
 from models import storage
 
 
-class BaseModel:
+class BaseModel():
     """Class that defines a BaseModel atributtes"""
 
     def __init__(self, *args, **kwargs):
-        """created a new instance
+        """
+        created a new instance
         """
         if kwargs is not None and len(kwargs) > 0:
             for key, value in kwargs.items():
@@ -26,17 +28,22 @@ class BaseModel:
         storage.new(self)
 
     def __str__(self):
-        """instance that return str of class atributtes"""
+        """
+        instance that return str of class atributtes
+        """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                      self.__dict__)
 
     def save(self):
-        """update the update atributte"""
+        """
+        update the update atributte
+        """
         self.update_at = datetime.now()
         storage.save()
 
     def to_dict(self):
-        """eturns a dictionary containing all
+        """
+        returns a dictionary containing all
         keys/values of __dict__ of the instance:
         """
         return_dictionary = self.__dict__.copy()

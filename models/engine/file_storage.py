@@ -6,7 +6,7 @@ import os
 """Module that contains class FilesStorage"""
 
 
-class FileStorage:
+class FileStorage():
     """class that realice serialization
     and deserealization] JSON files.
     """
@@ -22,9 +22,10 @@ class FileStorage:
         """sets in __objects the obj
         with key <obj class name>.id
         """
-        new_obj = "{}.{}".format(obj.__class__.__name__, obj.id)
-        self.__objects[new_obj] = obj
-        # self.__objects.update({str(type(obj).__name__ + "." + obj.id): obj})
+        if obj:
+            new_obj = "{}.{}".format(obj.__class__.__name__, obj.id)
+            self.__objects[new_obj] = obj
+            # self.__objects.update({str(type(obj).__name__ + "." + obj.id): obj})
 
     def save(self):
         """serializes __objects to the
@@ -52,7 +53,7 @@ class FileStorage:
         if os.path.exists(self.__file_path):
             with open(self.__file_path, encoding='utf-8') as file:
                 contents = json.load(file)
-            if contents:
+            if contents is not None:
                 for key, value in contents.items():
                     eval(value['__class__'])(**value)
         else:

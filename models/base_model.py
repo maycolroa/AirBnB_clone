@@ -32,8 +32,8 @@ class BaseModel():
         """
             instance that return str of class atributtes
         """
-        return "[{}] ({}) {}".format(type(self).__name__,
-                                     self.id, self.__dict__)
+        return "[{}] ({}) {}".format(type(self).__name__, self.id,
+                                     self.__dict__)
 
     def save(self):
         """
@@ -44,8 +44,7 @@ class BaseModel():
 
     def to_dict(self):
         """
-            returns a dictionary containing all
-            keys/values of __dict__ of the instance:
+            returns a dictionary with specific attribbites and format
         """
         new_dict = self.__dict__.copy()
         new_dict.update({'created_at': self.created_at.isoformat(),

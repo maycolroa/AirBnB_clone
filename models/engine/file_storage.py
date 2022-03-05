@@ -52,8 +52,7 @@ class FileStorage():
 
         if os.path.exists(self.__file_path):
             with open(self.__file_path, encoding='utf-8') as file:
-                contents = file.read()
-                contents = json.load(contents)
+                contents = json.load(file)
             if contents is not None:
                 for key, value in contents.items():
                     self.new(eval(value['__class__'])(**value))

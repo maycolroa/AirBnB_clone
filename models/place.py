@@ -1,12 +1,15 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel
-"""Module that cointains Place class
+"""
+    Module that cointains Place class
     inherits from base.
 """
 
 
 class Place(BaseModel):
-    """Class Place that have data of a place"""
+    """
+        Class Place that have data of a place
+    """
     city_id = ""
     user_id = ""
     name = ""

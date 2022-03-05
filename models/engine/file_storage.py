@@ -34,7 +34,7 @@ class FileStorage():
             new_dict = {}
             for key, value in self.__objects.items():
                 new_dict[key] = value.to_dict()
-            with open(self.__file_path, mode="w+", encoding="utf-8") as file:
+            with open(self.__file_path, mode="w", encoding="utf-8") as file:
                 json.dump(new_dict, file)
 
     def reload(self):
@@ -55,6 +55,7 @@ class FileStorage():
                 contents = json.load(file)
             if contents is not None:
                 for key, value in contents.items():
-                    eval(value['__class__'])(**value)
+                    new_obj = eval(value['__class__'])(**value)
+                    self.new(new_obj)
         else:
-            pass
+            return

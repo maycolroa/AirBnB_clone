@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import uuid
-from abc import ABC, abstractmethod
 from datetime import datetime
 from models import storage
 
@@ -8,7 +7,7 @@ from models import storage
 """
 
 
-class BaseModel(ABC):
+class BaseModel:
     """Class that defines a BaseModel atributtes"""
 
     def __init__(self, *args, **kwargs):

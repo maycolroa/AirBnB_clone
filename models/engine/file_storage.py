@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
+"""Module that contains class FilesStorage"""
 import json
 import os
 
-"""Module that contains class FilesStorage"""
 
 
 class FileStorage():
@@ -22,7 +22,7 @@ class FileStorage():
         """sets in __objects the obj
         with key <obj class name>.id
         """
-        if obj:
+        if obj is not None:
             self.__objects.update(
                 {str(type(obj).__name__ + "." + obj.id): obj})
 
@@ -30,9 +30,10 @@ class FileStorage():
         """serializes __objects to the
         JSON file (path: __file_path)
         """
-        new_dict = {}
-        for key, value in self.__objects.items():
-            new_dict[key] = value.to_dict()
+        if self.__objects is not None:
+            new_dict = {}
+            for key, value in self.__objects.items():
+                new_dict[key] = value.to_dict()
         with open(self.__file_path, mode="w", encoding="utf-8") as file:
             json.dump(new_dict, file)
 

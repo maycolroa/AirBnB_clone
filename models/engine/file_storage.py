@@ -51,12 +51,15 @@ class FileStorage():
 
         if os.path.exists(self.__file_path):
             with open(self.__file_path, encoding='utf-8') as file:
-                contents = json.load(file)
-            if contents is not None:
-                for key, value in contents.items():
-                    new_obj = eval(value['__class__'])(**value)
-                    self.new(new_obj)
-            else:
-                pass
+                contents = file.read()
+
         else:
             return
+        if contents is not None:
+            deserialized = json.loads(contents)
+            for key, value in deserialized.items():
+                if key not in self.__objects.keys():
+                    new_obj = eval(value['__class__'])(**value)
+                    self.new(new_obj)
+        else:
+            pass

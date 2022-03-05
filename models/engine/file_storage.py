@@ -60,7 +60,8 @@ class FileStorage():
             deserialized = json.loads(contents)
             for key, value in deserialized.items():
                 if key not in self.__objects.keys():
-                    new_obj = eval(value['__class__'])(**value)
+                    ClassName = value["__class__"]
+                    new_obj = eval("{}(**value)".format(ClassName))
                     self.new(new_obj)
         else:
             pass

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Module that cointains class HBNB"""
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -12,10 +12,11 @@ from models import storage
 import cmd
 
 
-"""Module that cointains class HBNB"""
-
-
 class HBNBCommand(cmd.Cmd):
+    """
+    class to realice a gestion of classes through
+    command interpreter.
+    """
     prompt = '(hbnb) '
     __class_l = ['BaseModel', 'User', 'State', 'City',
                  'Amenity', 'Place', 'Review']

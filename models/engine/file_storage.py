@@ -5,7 +5,6 @@ import json
 import os
 
 
-
 class FileStorage():
     """class that realice serialization
     and deserealization] JSON files.
@@ -60,8 +59,7 @@ class FileStorage():
             deserialized = json.loads(contents)
             for key, value in deserialized.items():
                 if key not in self.__objects.keys():
-                    ClassName = value["__class__"]
-                    new_obj = eval("{}(**value)".format(ClassName))
+                    new_obj = eval(value['__class__'])(**value)
                     self.new(new_obj)
         else:
             pass

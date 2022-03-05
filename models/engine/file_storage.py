@@ -1,32 +1,39 @@
 #!/usr/bin/python3
-"""Module that contains class FilesStorage"""
+"""
+    Module that contains class FilesStorage
+"""
 import json
 import os
 
 
 class FileStorage():
-    """class that realice serialization
-    and deserealization] JSON files.
+    """
+        class that realice serialization
+        and deserealization] JSON files.
     """
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
 
-        """return all the objects of dict"""
+        """
+            return all the objects of dict
+        """
         return (self.__objects)
 
     def new(self, obj):
-        """sets in __objects the obj
-        with key <obj class name>.id
+        """
+            sets in __objects the obj
+            with key <obj class name>.id
         """
         if obj is not None:
             self.__objects.update(
                 {str(type(obj).__name__ + "." + obj.id): obj})
 
     def save(self):
-        """serializes __objects to the
-        JSON file (path: __file_path)
+        """
+            serializes __objects to the
+            JSON file (path: __file_path)
         """
         new_dict = {}
         if self.__objects is not None:
@@ -36,9 +43,10 @@ class FileStorage():
             json.dump(new_dict, file)
 
     def reload(self):
-        """deserializes the JSON file to __objects
-        (only if the JSON file (__file_path) exists;
-        otherwise, do nothing.
+        """
+            deserializes the JSON file to __objects
+            (only if the JSON file (__file_path) exists;
+            otherwise, do nothing.
         """
         from models.base_model import BaseModel
         from models.user import User

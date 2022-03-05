@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """Module that contains class FilesStorage"""
 import json
 import os
@@ -29,8 +28,8 @@ class FileStorage():
         """serializes __objects to the
         JSON file (path: __file_path)
         """
+        new_dict = {}
         if self.__objects is not None:
-            new_dict = {}
             for key, value in self.__objects.items():
                 new_dict[key] = value.to_dict()
         with open(self.__file_path, mode="w", encoding="utf-8") as file:
@@ -49,8 +48,9 @@ class FileStorage():
         from models.place import Place
         from models.review import Review
 
+        deserialized = {}
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, encoding='utf-8') as file:
+            with open(self.__file_path, encoding="utf-8") as file:
                 contents = file.read()
 
         else:
@@ -59,7 +59,7 @@ class FileStorage():
             deserialized = json.loads(contents)
             for key, value in deserialized.items():
                 if key not in self.__objects.keys():
-                    new_obj = eval(value['__class__'])(**value)
+                    new_obj = eval(value["__class__"])(**value)
                     self.new(new_obj)
         else:
             pass

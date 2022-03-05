@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
                 dict = storage.all()
                 del dict[args[0] + "." + check.id]
                 return True
-            except:
+            except Exception:
                 print("** class doesn't exist **")
                 return False
 
@@ -154,7 +154,7 @@ class HBNBCommand(cmd.Cmd):
             upd_instance = storage.all().get(class_id)
             try:
                 upd_attr = getattr(upd_instance, attribute)
-            except:
+            except Exception:
                 upd_attr = ""
             type_attr = type(upd_attr)
             setattr(upd_instance, attribute, type_attr(args_sp[3]))
@@ -202,6 +202,7 @@ class HBNBCommand(cmd.Cmd):
                 print("*** Unknown syntax:", args[0])
         else:
             return
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

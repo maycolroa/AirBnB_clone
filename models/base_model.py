@@ -8,7 +8,9 @@ from models import storage
 
 
 class BaseModel():
-    """Class that defines a BaseModel atributtes"""
+    """
+    Class that defines a BaseModel atributtes
+    """
 
     def __init__(self, *args, **kwargs):
         """

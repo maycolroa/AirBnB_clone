@@ -23,19 +23,18 @@ class FileStorage():
         with key <obj class name>.id
         """
         if obj:
-            self.__objects.update({str(type(obj).__name__ +
-                                       "." + obj.id): obj})
+            self.__objects.update(
+                {str(type(obj).__name__ +"." + obj.id): obj})
 
     def save(self):
         """serializes __objects to the
         JSON file (path: __file_path)
         """
-        if self.__objects is not None:
-            new_dict = {}
-            for key, value in self.__objects.items():
-                new_dict[key] = value.to_dict()
-            with open(self.__file_path, mode="w", encoding="utf-8") as file:
-                json.dump(new_dict, file)
+        new_dict = {}
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
+        with open(self.__file_path, mode="w", encoding="utf-8") as file:
+            json.dump(new_dict, file)
 
     def reload(self):
         """deserializes the JSON file to __objects

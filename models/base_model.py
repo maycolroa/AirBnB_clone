@@ -2,6 +2,7 @@
 """
     This module contain a base model that have
 """
+from typing_extensions import Self
 import uuid
 from datetime import datetime
 from models import storage
@@ -27,6 +28,7 @@ class BaseModel():
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
 
+    storage.new(Self)
 
     def __str__(self):
         """

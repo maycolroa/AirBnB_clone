@@ -48,6 +48,7 @@ class FileStorage:
         from models.amenity import Amenity
         from models.place import Place
         from models.review import Review
+
         if os.path.exists(self.__file_path):
             with open(self.__file_path, encoding='utf-8') as file:
                 contents = json.load(file)
@@ -55,4 +56,4 @@ class FileStorage:
                 for key, value in contents.items():
                     eval(value['__class__'])(**value)
         else:
-            return
+            pass

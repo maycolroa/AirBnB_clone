@@ -49,6 +49,6 @@ class BaseModel():
         """
         new_dict = self.__dict__.copy()
         new_dict.update({'created_at': self.created_at.isoformat(),
-                                  'update_at': self.update_at.isoformat(),
-                                  '__class__': type(self).__name__})
+                         'update_at': self.update_at.isoformat(),
+                         '__class__': type(self).__name__})
         return new_dict

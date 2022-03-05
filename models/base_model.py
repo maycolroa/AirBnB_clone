@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Module contain class basemodel"""
+"""
+    Module contain class basemodel
+"""
 import uuid
 from datetime import datetime
 from models import storage
@@ -7,7 +9,7 @@ from models import storage
 
 class BaseModel():
     """
-    Class that defines a BaseModel atributtes
+        Class that defines a BaseModel atributtes
     """
     def __init__(self, *args, **kwargs):
         """

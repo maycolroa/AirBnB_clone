@@ -104,29 +104,10 @@ class HBNBCommand(cmd.Cmd):
             If arguments are valid prints an specific instance according to
             given values.
         """
-        arg = arg.split()
-
-        if len(arg) == 0:
-            print("** class name missing **")
-            return
-
-        if arg[0] in self.__classes:
-
-            if len(arg) < 2:
-                print("** instance id missing **")
-                return
-
-            instance = arg[0] + "." + arg[1]
-            objects = storage.all()
-
-            try:
-                print(objects[instance])
-
-            except KeyError:
-                print("** no instance found **")
-
-        else:
-            print("** class doesn't exist **")
+        class_id = arg.split()
+        if self.check_for_class(class_id) and self.check_for_id(class_id):
+            dict = storage.all()
+            print("{}".format(dict[class_id[0] + "." + class_id[1]]))
 
     def do_destroy(self, args):
         """

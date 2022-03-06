@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    Module contain class basemodel
+    Class that defines a Base model
 """
 import uuid
 from datetime import datetime
@@ -9,11 +9,11 @@ from models import storage
 
 class BaseModel():
     """
-        Class that defines a BaseModel atributtes
+        Class that defines Base model attributes and methods.
     """
     def __init__(self, *args, **kwargs):
         """
-            created a new instance
+            Create new instances according given arguments and store the info
         """
         if kwargs is not None and len(kwargs) > 0:
             for key, value in kwargs.items():
@@ -29,24 +29,25 @@ class BaseModel():
 
     def __str__(self):
         """
-            instance that return str of class atributtes
+            Modify the stdr output with a specific format
         """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
                                      self.__dict__)
 
     def save(self):
         """
-            update the update atributte
+            Update the attribute updated_at with the current datetime
+            and save changes in json file.
         """
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
         """
-            returns a dictionary with specific attribbites and format
+            Return a Dictionary with specific attributes and format
         """
         new_dict = self.__dict__.copy()
         new_dict.update({'created_at': self.created_at.isoformat(),
-                         'updated_at': self.updated_at.isoformat(),
-                         '__class__': type(self).__name__})
+                                'updated_at': self.updated_at.isoformat(),
+                                '__class__': type(self).__name__})
         return new_dict

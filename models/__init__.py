@@ -6,4 +6,4 @@ from models.engine.file_storage import FileStorage
 
 
 storage = FileStorage()
-storage.reload()  # Loads saved info in json file if the file exists
+storage.reload()

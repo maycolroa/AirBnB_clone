@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
                 dict = storage.all()
                 del dict[args[0] + "." + check.id]
                 return True
-            except:
+            except KeyError:
                 print("** class doesn't exist **")
                 return False
 
@@ -104,10 +104,29 @@ class HBNBCommand(cmd.Cmd):
             If arguments are valid prints an specific instance according to
             given values.
         """
-        class_id = arg.split()
-        if self.check_for_class(class_id) and self.check_for_id(class_id):
-            dict = storage.all()
-            print("{}".format(dict[class_id[0] + "." + class_id[1]]))
+        arg = arg.split()
+
+        if len(arg) == 0:
+            print("** class name missing **")
+            return
+
+        if arg[0] in self.__classes:
+
+            if len(arg) < 2:
+                print("** instance id missing **")
+                return
+
+            instance = arg[0] + "." + arg[1]
+            objects = storage.all()
+
+            try:
+                print(objects[instance])
+
+            except KeyError:
+                print("** no instance found **")
+
+        else:
+            print("** class doesn't exist **")
 
     def do_destroy(self, args):
         """
@@ -153,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
             upd_instance = storage.all().get(class_id)
             try:
                 upd_attr = getattr(upd_instance, attribute)
-            except:
+            except KeyError:
                 upd_attr = ""
             type_attr = type(upd_attr)
             setattr(upd_instance, attribute, type_attr(args_sp[3]))

@@ -32,7 +32,7 @@ class BaseModel():
             Modify the stdr output with a specific format
         """
         return "[{}] ({}) {}".format(type(self).__name__, self.id,
-                                     self.__dict__)
+                                    self.__dict__)
 
     def save(self):
         """

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-    Module that contains class FilesStorage
+Class that defines FileStorage
 """
 import json
 import os
@@ -8,23 +8,21 @@ import os
 
 class FileStorage():
     """
-        class that realice serialization
-        and deserealization] JSON files.
+        Initialize private FileStorage class attributes
     """
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-
         """
-            return all the objects of dict
+            Returns the __objects dictionary
         """
-        return (self.__objects)
+        return(self.__objects)
 
     def new(self, obj):
         """
-            sets in __objects the obj
-            with key <obj class name>.id
+            Creates a new key(class.id) & value(instance attributes dictionary)
+            of an instance in __objects dictionary
         """
         if obj is not None:
             self.__objects.update(
@@ -32,21 +30,20 @@ class FileStorage():
 
     def save(self):
         """
-            serializes __objects to the
-            JSON file (path: __file_path)
+            Append all keys & values set on __objects dictionary
+            into a new dictionary to save all instances in a json file
         """
-        new_dict = {}
+        dict_serialized = {}
         if self.__objects is not None:
             for key, value in self.__objects.items():
-                new_dict[key] = value.to_dict()
-        with open(self.__file_path, mode="w", encoding="utf-8") as file:
-            json.dump(new_dict, file)
+                dict_serialized[key] = value.to_dict()
+        with open(self.__file_path, mode="w", encoding="utf-8") as my_file:
+            json.dump(dict_serialized, my_file)
 
     def reload(self):
         """
-            deserializes the JSON file to __objects
-            (only if the JSON file (__file_path) exists;
-            otherwise, do nothing.
+            Load the .json file(verify existence), set all keys & values into
+            the __objects dictionary and recreate instances found in the file
         """
         from models.base_model import BaseModel
         from models.user import User
@@ -58,16 +55,16 @@ class FileStorage():
 
         deserialized = {}
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, encoding="utf-8") as file:
-                contents = file.read()
-
+            with open(self.__file_path, encoding="utf-8") as my_file:
+                serialized_c = my_file.read()
         else:
             return
-        if contents is not None:
-            deserialized = json.loads(contents)
-            for key, value in deserialized.items():
-                if key not in self.__objects.keys():
-                    new_obj = eval(value["__class__"])(**value)
-                    self.new(new_obj)
+        if serialized_c is not None or bool(serialized_c) is True:
+            deserialized = json.loads(serialized_c)
+        for key, value in deserialized.items():
+            if key not in self.__objects.keys():
+                ClassName = value["__class__"]
+                new_instance = eval("{}(**value)".format(ClassName))
+                self.new(new_instance)
         else:
             pass

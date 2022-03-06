@@ -91,7 +91,6 @@ class TestFileStorage(unittest.TestCase):
         with open(self.file_path, 'w', encoding='utf8') as file:
             json.dump("{}", file)
 
-
         self.assertEqual(len(instance.all()), 0)
 
         """Testing FileStorage class """

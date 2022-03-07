@@ -16,6 +16,14 @@ create all classes used for AirBnB (User, State, City, Place…) that inherit fr
 create the first abstracted storage engine of the project: File storage.
 create all unittests to validate all our classes and storage engine
 
+## Installation ##
+If you want to run the command interpreter follow the next steps:
+
+- Clone the repository: git clone https://github.com/maycolroa/AirBnB_clone
+
+2. Access AirBnB_clone directory: cd AirBnB_clone
+
+3. Run: ./console.py
 
 ## exercises. ##
 

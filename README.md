@@ -51,7 +51,6 @@ If you want to run the command interpreter follow the next steps:
 
 ## exercises. ##
 
-
 ```
 implementation and creation of AirBnB clone - The console. 
 

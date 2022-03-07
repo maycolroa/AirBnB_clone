@@ -31,8 +31,7 @@ class BaseModel():
         """
             Modify the stdr output with a specific format
         """
-        return "[{}] ({}) {}".format(type(self).__name__, self.id,
-                                    self.__dict__)
+        return "[{}] ({}) {}".format(type(self).name, self.id, self.__dict__)
 
     def save(self):
         """
@@ -46,8 +45,8 @@ class BaseModel():
         """
             Return a Dictionary with specific attributes and format
         """
-        new_dict = self.__dict__.copy()
-        new_dict.update({'created_at': self.created_at.isoformat(),
-                        'updated_at': self.updated_at.isoformat(),
-                        '__class__': type(self).__name__})
-        return new_dict
+        representation = self.__dict__.copy()
+        representation["updated_at"] = self.updated_at.isoformat()
+        representation["created_at"] = self.created_at.isoformat()
+        representation["__class__"] = self.__class__.__name__
+        return representation

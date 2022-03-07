@@ -15,7 +15,7 @@ class BaseModel():
         """
             Create new instances according given arguments and store the info
         """
-        if kwargs is not None and len(kwargs) > 0:
+        if kwargs:
             for key, value in kwargs.items():
                 if key == "updated_at" or key == "created_at":
                     value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')

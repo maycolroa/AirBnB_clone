@@ -25,6 +25,30 @@ If you want to run the command interpreter follow the next steps:
 
 3. Run: ./console.py
 
+## Usage Examples ##
+
+## Interactive Mode ##
+
+![carbon (2)](https://user-images.githubusercontent.com/85509333/157092726-aa890dd5-611c-4542-a17a-d904cf2a4568.png)
+
+![carbon (3)](https://user-images.githubusercontent.com/85509333/157093304-e885eebf-5faf-41e8-9a14-ce012e16f582.png)
+
+## Non-Interactive Mode ##
+
+![carbon (6)](https://user-images.githubusercontent.com/85509333/157094747-6bfc0151-93d9-453a-a484-076d6befcf13.png)
+
+## console commands ##
+```
+- quit - Exit the program.
+- EOF - Exit the program.
+- help - Gives a little description of a command.
+- create - Creates a new instance.
+- show - Prints the string representation of an instance based on the class name and id.
+- detroy - Deletes an instance based on the class name and id.
+- all - Prints all string representation of all instances based or not on the class name.
+- update - Updates an instance based on the class name and id by adding or updating attribute.
+```
+
 ## exercises. ##
 
 

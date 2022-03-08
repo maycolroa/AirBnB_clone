@@ -31,7 +31,8 @@ class BaseModel():
         """
             Modify the stdr output with a specific format
         """
-        return "[{}] ({}) {}".format(type(self).name, self.id, self.__dict__)
+        name = self.__class__.__name__
+        return "[{}] ({}) {}".format(name, self.id, self.__dict__)
 
     def save(self):
         """

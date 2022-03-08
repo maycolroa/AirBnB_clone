@@ -4,6 +4,13 @@ Class that defines FileStorage
 """
 import json
 import os
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class FileStorage():
@@ -24,9 +31,8 @@ class FileStorage():
             Creates a new key(class.id) & value(instance attributes dictionary)
             of an instance in __objects dictionary
         """
-        if obj is not None:
-            self.__objects.update(
-                {str(type(obj).__name__ + "." + obj.id): obj})
+        key = obj.__class__.__name__ + '.' + str(obj.id)
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """
@@ -34,37 +40,28 @@ class FileStorage():
             into a new dictionary to save all instances in a json file
         """
         dict_serialized = {}
-        if self.__objects is not None:
-            for key, value in self.__objects.items():
-                dict_serialized[key] = value.to_dict()
-        with open(self.__file_path, mode="w", encoding="utf-8") as my_file:
-            json.dump(dict_serialized, my_file)
+        savedict = {}
+        for key, value in FileStorage.__objects.items():
+            savedict[key] = value.to_dict()
+
+        with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
+            file.write(json.dumps(savedict))
 
     def reload(self):
         """
             Load the .json file(verify existence), set all keys & values into
             the __objects dictionary and recreate instances found in the file
         """
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.place import Place
-        from models.review import Review
-
-        deserialized = {}
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, encoding="utf-8") as my_file:
-                serialized_c = my_file.read()
-        else:
-            return
-        if serialized_c is not None or bool(serialized_c) is True:
-            deserialized = json.loads(serialized_c)
-        for key, value in deserialized.items():
-            if key not in self.__objects.keys():
-                ClassName = value["__class__"]
-                new_instance = eval("{}(**value)".format(ClassName))
-                self.new(new_instance)
-        else:
+        dictReload = {}
+        try:
+            cls_arr = {"BaseModel": BaseModel, "Amenity": Amenity,
+                    "City": City, "Place": Place,
+                    "Review": Review, "State": State, "User": User}
+            with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
+                dictReload = json.load(file)
+                for key, value in dictReload.items():
+                    cls_to_ins = cls_arr.get(value['__class__'])
+                    obj = cls_to_ins(**value)
+                    FileStorage.__objects[key] = obj
+        except FileNotFoundError:
             pass
